@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bgip.exception.BgipException;
 import com.bgip.filter.AuthFilter;
 import com.bgip.model.upload.FolderResponse;
+import com.bgip.model.user.Profile;
 import com.bgip.model.ResponseBean;
 import com.bgip.service.UploadServices;
 import com.bgip.model.upload.FilesBean;
@@ -170,10 +171,6 @@ public class UploadController extends BaseController {
 		 result = uploadServices.getFavouriteFiles(loginUser);
 		return result;
 	}
-	
-	
-	
-	
 	
 	
 	

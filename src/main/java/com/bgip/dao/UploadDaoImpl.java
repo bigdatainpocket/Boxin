@@ -11,7 +11,6 @@ import com.bgip.constants.BgipConstants;
 import com.bgip.constants.StatusCodes;
 import com.bgip.exception.BgipException;
 import com.bgip.model.upload.FolderResponse;
-import com.bgip.model.upload.UploadRequest;
 import com.bgip.model.ResponseBean;
 import com.bgip.model.upload.FilesBean;
 import com.bgip.model.upload.FolderRequest;
@@ -29,6 +28,9 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 
 	@Autowired
 	StatusCodes statusCodes;
+	
+	@Autowired
+	ProfileDAO profileDAO;
 
 	public FolderRequest uploadedFiles(FolderRequest folderRequest, String loginUser) throws BgipException {
 		
@@ -36,9 +38,6 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 		FolderRequest finalResult = new FolderRequest();
 		List<FilesBean> fileList = new ArrayList<FilesBean>();
 
-		
-	
-		
 		
 		
 		if( CommonUtils.isNotEmpty(folderRequest.getFolderName())) {
@@ -164,7 +163,7 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 		List<FilesBean> files = new ArrayList<FilesBean>();
 		FolderBean folder = new FolderBean();
 		
-		System.out.println(" folderRequest parentId : "+folderRequest.getParentFolderId());
+//		System.out.println(" folderRequest parentId : "+folderRequest.getParentFolderId());
 		
 		if( CommonUtils.isEmpty(folderRequest.getParentFolderId())) {
 			folder.setParentFolderId("0");
@@ -225,8 +224,11 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 	public List<FolderBean> getSubFolderList(String folderId, String loginUser) throws Exception {
 		List<FolderBean> folderList = new ArrayList<FolderBean>();
 		try {
-			folderList = mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FOLDER_COLLECTION,
-					"parentFolderId", folderId, "userName", loginUser, FolderBean.class);
+//			folderList = mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FOLDER_COLLECTION,
+//					"parentFolderId", folderId, "userName", loginUser, FolderBean.class);
+			
+			folderList = mongoManager.getObjectsBy3Fields(com.bgip.constants.BgipConstants.FOLDER_COLLECTION,
+					"parentFolderId", folderId, "userName", loginUser,"trash", false, FolderBean.class);
 			System.out.println("  folderId : "+folderId);
 			System.out.println(" Foldr list : "+folderList);
 			
@@ -298,8 +300,10 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 	
 	public List<FilesBean> getFilesByFolderId(String folderId, String loginUser) throws Exception {
 		try {
-			return mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, "folderId", folderId,
-					"userName", loginUser, FilesBean.class);
+//			return mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, "folderId", folderId,
+//					"userName", loginUser, FilesBean.class);
+			return mongoManager.getObjectsBy3Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, "folderId", folderId, "userName", loginUser,
+					"trash", false, FilesBean.class);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new BgipException(StatusCodes.NOT_FOUND, " Error in getFilesByFolderId Api !! file list doesn't exist ");
@@ -395,8 +399,8 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 	public List<FilesBean> getFavouriteFiles(String loginUser) throws Exception {
 		List<FilesBean> favFolderList = null;
 		System.out.println("files List 3: "+System.currentTimeMillis());
-		favFolderList = mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, 
-				"userName", loginUser, "favourite", true, FilesBean.class);
+		favFolderList = mongoManager.getObjectsBy3Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, 
+				"userName", loginUser, "favourite", true, "trash", false, FilesBean.class);
 		System.out.println("files List 4: "+System.currentTimeMillis());
 
 		if( favFolderList == null ) {
@@ -408,7 +412,7 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 
 	
 
-
+	
 	public void downloadFiles(FolderBean files) throws Exception {
 
 	}

@@ -443,6 +443,20 @@ public class MongoManager {
 		return objectList;
 	}
 	
+	public <T> List<T> getObjectsBy3Fields(String collectionName, String fieldName1, String fieldValue1, String fieldName2, String fieldValue2,String fieldName3, boolean fieldValue3, Class<T> className) throws Exception {
+		List<T> objectList = null;
+		Query query = new Query(Criteria.where(fieldName1).is(fieldValue1) .and(fieldName2).is(fieldValue2) . and(fieldName3).is(fieldValue3));
+		objectList = mongoTemplate.find(query, className, collectionName);
+		return objectList;
+	}
+	
+	public <T> List<T> getObjectsBy3Fields(String collectionName, String fieldName1, String fieldValue1, String fieldName2, boolean fieldValue2,String fieldName3, boolean fieldValue3, Class<T> className) throws Exception {
+		List<T> objectList = null;
+		Query query = new Query(Criteria.where(fieldName1).is(fieldValue1) .and(fieldName2).is(fieldValue2) . and(fieldName3).is(fieldValue3));
+		objectList = mongoTemplate.find(query, className, collectionName);
+		return objectList;
+	}
+	
 	/*
 	
 	public <T> List<T> getObjectsByOrderAndPage(String collectionName,String fieldName1, String fieldValue1, String fieldName2, String fieldValue2,String fieldName3, Boolean fieldValue3, String sortField, Direction orderDir,Integer pageNumber, Integer pageSize, String distinctField, Class<T> className) throws Exception{

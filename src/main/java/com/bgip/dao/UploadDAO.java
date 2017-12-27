@@ -3,7 +3,6 @@ package com.bgip.dao;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import com.bgip.model.upload.FolderResponse;
-import com.bgip.model.upload.UploadRequest;
 import com.bgip.exception.BgipException;
 import com.bgip.model.ResponseBean;
 import com.bgip.model.upload.FilesBean;

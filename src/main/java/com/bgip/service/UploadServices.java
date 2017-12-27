@@ -6,11 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bgip.constants.StatusCodes;
+import com.bgip.dao.ProfileDAO;
 import com.bgip.dao.UploadDAO;
 import com.bgip.exception.BgipException;
 import com.bgip.model.upload.FolderResponse;
+import com.bgip.model.user.Profile;
 import com.bgip.model.ResponseBean;
 import com.bgip.model.upload.FilesBean;
 import com.bgip.model.upload.FolderRequest;
@@ -23,6 +24,11 @@ public class UploadServices {
 
 	@Autowired
 	UploadDAO uploadDao;
+	
+	@Autowired
+	ProfileDAO profileDAO;
+	
+
 
 	public FolderRequest uploadFolder(FolderRequest folder, String loginUser) throws Exception {
 		LOGGER.info("BGIP  uploadedFiles  method call :: ");
@@ -87,8 +93,6 @@ public class UploadServices {
 	
 	
 	
-	
-	
 	public void downloadFiles(FolderBean files) throws Exception {
 		LOGGER.info("BGIP  downloadFiles  method call :: ");
 	}
@@ -101,5 +105,20 @@ public class UploadServices {
 	public void getFiles(FolderBean files) throws Exception {
 		LOGGER.info("BGIP  getFiles  method call :: ");
 	}
+	
+	
+	
+	public ResponseBean profileStorageTypeCreate( Profile profile, String loginUser) throws Exception{
+		profile.setUserName(loginUser);
+		return profileDAO.profileStorageTypeCreate(profile);
+		
+	}
+	
+	public Profile getProfile(String user) throws Exception{
+		
+		return profileDAO.getProfile(user);
+	}
+	
+	
 	
 }

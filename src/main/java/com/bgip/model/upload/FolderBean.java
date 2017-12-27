@@ -13,10 +13,20 @@ public class FolderBean extends BaseBean {
 	private String link;
 	
 	private boolean favourite;
+	
+	private boolean trash;
 
 	private String bucketPublicId;
 	
 	
+	public boolean isTrash() {
+		return trash;
+	}
+
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
+
 	public String getBucketPublicId() {
 		return bucketPublicId;
 	}

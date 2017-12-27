@@ -18,6 +18,18 @@ public class FilesBean extends BaseBean{
 
 	private String bucketPublicId;
 	
+	private boolean trash;
+	
+	
+	
+	public boolean isTrash() {
+		return trash;
+	}
+
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
+
 	public boolean isFavourite() {
 		return favourite;
 	}
