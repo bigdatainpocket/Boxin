@@ -22,15 +22,17 @@ public interface UploadDAO {
 
 	public FolderResponse getAllFiles(String loginUser) throws Exception;
 	
-	public ResponseBean makeFavouriteFolder( String folderId, String loginUser) throws Exception;
+	public ResponseBean makeFavoriteFolder( String folderId, String loginUser) throws Exception;
 	
-	public ResponseBean makeFavouriteFile( String fileId, String loginUser) throws Exception;
+	public ResponseBean makeFavoriteFile( String fileId, String loginUser) throws Exception;
 	
-	public FolderResponse getFavouriteFolders( String loginUser) throws Exception;
+	public FolderResponse getFavoriteFolders( String loginUser) throws Exception;
 	
-	public List<FilesBean> getFavouriteFiles( String loginUser) throws Exception;
+	public List<FilesBean> getFavoriteFiles( String loginUser) throws Exception;
 	
 	public void downloadFiles(FolderBean files) throws Exception;
+
+	
 	
 	
 	

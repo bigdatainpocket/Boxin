@@ -12,8 +12,20 @@ public class FolderBean extends BaseBean {
 	
 	private String link;
 	
-	private boolean favourite;
+	private boolean favorite;
 	
+	
+	
+	
+
+	public boolean isFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	private boolean trash;
 
 	private String bucketPublicId;
@@ -41,14 +53,6 @@ public class FolderBean extends BaseBean {
 
 	public void setParentFolderId(String parentFolderId) {
 		this.parentFolderId = parentFolderId;
-	}
-
-	public boolean isFavourite() {
-		return favourite;
-	}
-
-	public void setFavourite(boolean favourite) {
-		this.favourite = favourite;
 	}
 
 	

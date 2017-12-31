@@ -275,13 +275,15 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 	
 	
 	@Override
-	public FolderResponse getFavouriteFolders(String loginUser) throws Exception {
+	public FolderResponse getFavoriteFolders(String loginUser) throws Exception {
 		FolderResponse finalResult = new FolderResponse();
 		
 		List<FilesBean> fileList = mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, "userName", loginUser,
-				"favourite", true, FilesBean.class);
+				"favorite", true, FilesBean.class);
 		List<FolderBean> folderList = mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FOLDER_COLLECTION, "userName", loginUser,
-				"favourite", true, FolderBean.class);
+				"favorite", true, FolderBean.class);
+		System.out.println(" folderList; : "+mongoManager.getObjectsBy2Fields(com.bgip.constants.BgipConstants.FOLDER_COLLECTION, "userName", loginUser, "favorite", true, FolderBean.class));
+		
 		if( fileList != null) {
 			finalResult.setFolderList(folderList);
 		}
@@ -332,20 +334,20 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 
 
 	@Override
-	public ResponseBean makeFavouriteFolder(String folderId, String loginUser) throws Exception {
+	public ResponseBean makeFavoriteFolder(String folderId, String loginUser) throws Exception {
 		ResponseBean response = null;
 		if (CommonUtils.isNotEmpty(folderId)) {
 			FolderBean favFolderFromdDB= mongoManager.getObjectByID(com.bgip.constants.BgipConstants.FOLDER_COLLECTION, folderId, FolderBean.class);
 			try {
 				if( favFolderFromdDB != null) {
 					
-					if( favFolderFromdDB.isFavourite() == false) {
+					if( favFolderFromdDB.isFavorite() == false) {
 						mongoManager.updateByObjectId(com.bgip.constants.BgipConstants.FOLDER_COLLECTION, "_id",
-								new ObjectId(folderId), "favourite", true);
+								new ObjectId(folderId), "favorite", true);
 						 response = new ResponseBean(StatusCodes.SUCCESS_MESSAGE, " Favorite Success");
 					}else {
 						mongoManager.updateByObjectId(com.bgip.constants.BgipConstants.FOLDER_COLLECTION, "_id",
-								new ObjectId(folderId), "favourite", false);
+								new ObjectId(folderId), "favorite", false);
 						 response = new ResponseBean(StatusCodes.SUCCESS_MESSAGE, " Unfavorite Success");
 					}
 				}
@@ -362,20 +364,20 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 	
 	
 	@Override
-	public ResponseBean makeFavouriteFile(String fileId, String loginUser) throws Exception {
+	public ResponseBean makeFavoriteFile(String fileId, String loginUser) throws Exception {
 		ResponseBean response = null;
 		if (CommonUtils.isNotEmpty(fileId)) {
 			FilesBean favFolderFromdDB= mongoManager.getObjectByID(com.bgip.constants.BgipConstants.FILES_COLLECTION, fileId, FilesBean.class);
 			try {
 				if( favFolderFromdDB != null) {
 					
-					if( favFolderFromdDB.isFavourite() == false) {
+					if( favFolderFromdDB.isFavorite() == false) {
 						mongoManager.updateByObjectId(com.bgip.constants.BgipConstants.FILES_COLLECTION, "_id",
-								new ObjectId(fileId), "favourite", true);
+								new ObjectId(fileId), "favorite", true);
 						 response = new ResponseBean(StatusCodes.SUCCESS_MESSAGE, " Favorite Success");
 					}else {
 						mongoManager.updateByObjectId(com.bgip.constants.BgipConstants.FILES_COLLECTION, "_id",
-								new ObjectId(fileId), "favourite", false);
+								new ObjectId(fileId), "favorite", false);
 						 response = new ResponseBean(StatusCodes.SUCCESS_MESSAGE, " Unfavorite Success");
 					}
 				}
@@ -396,15 +398,15 @@ public class UploadDaoImpl extends BaseDAO implements UploadDAO {
 
 	
 	@Override
-	public List<FilesBean> getFavouriteFiles(String loginUser) throws Exception {
+	public List<FilesBean> getFavoriteFiles(String loginUser) throws Exception {
 		List<FilesBean> favFolderList = null;
 		System.out.println("files List 3: "+System.currentTimeMillis());
 		favFolderList = mongoManager.getObjectsBy3Fields(com.bgip.constants.BgipConstants.FILES_COLLECTION, 
-				"userName", loginUser, "favourite", true, "trash", false, FilesBean.class);
+				"userName", loginUser, "favorite", true, "trash", false, FilesBean.class);
 		System.out.println("files List 4: "+System.currentTimeMillis());
 
 		if( favFolderList == null ) {
-			throw new BgipException(StatusCodes.NOT_FOUND, "You don't have favourite File List");
+			throw new BgipException(StatusCodes.NOT_FOUND, "You don't have favorite File List");
 		}
 		
 		return favFolderList;

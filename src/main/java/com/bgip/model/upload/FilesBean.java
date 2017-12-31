@@ -11,9 +11,8 @@ public class FilesBean extends BaseBean{
 	private String folderId = "0";
 	
 	private int size;
-	
-	private boolean favourite;
-	
+	private boolean favorite;
+
 	private String link;
 
 	private String bucketPublicId;
@@ -22,6 +21,14 @@ public class FilesBean extends BaseBean{
 	
 	
 	
+	public boolean isFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	public boolean isTrash() {
 		return trash;
 	}
@@ -30,13 +37,6 @@ public class FilesBean extends BaseBean{
 		this.trash = trash;
 	}
 
-	public boolean isFavourite() {
-		return favourite;
-	}
-
-	public void setFavourite(boolean favourite) {
-		this.favourite = favourite;
-	}
 
 	public String getFileName() {
 		return fileName;

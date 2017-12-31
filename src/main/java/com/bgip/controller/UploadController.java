@@ -117,14 +117,14 @@ public class UploadController extends BaseController {
 	
 	
 	@PUT
-	@Path("/folder/favourite/{folderId}")
+	@Path("/folder/favorite/{folderId}")
 	@Produces(APPLICATION_JSON)
-	public ResponseBean makeFavouriteFolder(@HeaderParam("token") String token, @PathParam("folderId") String folderId ) throws Exception {
+	public ResponseBean makefavoriteFolder(@HeaderParam("token") String token, @PathParam("folderId") String folderId ) throws Exception {
 		ResponseBean result = null;
 		this.authFilter = new AuthFilter();
 		 String loginUser = this.authFilter.getUserNameFromToken(token);
 		 try {
-			result = uploadServices.makeFavouriteFolder(folderId, loginUser);
+			result = uploadServices.makefavoriteFolder(folderId, loginUser);
 		} catch (BgipException fe) {
 			buildErrorResponse(Response.Status.CONFLICT, fe.getErrorCode(),
 					fe.getMessage());
@@ -133,15 +133,15 @@ public class UploadController extends BaseController {
 	}
 	
 	@PUT
-	@Path("/file/favourite/{fileId}")
+	@Path("/file/favorite/{fileId}")
 	@Produces(APPLICATION_JSON)
-	public ResponseBean getFavouriteFileList(@HeaderParam("token") String token, @PathParam("fileId") String fileId ) throws Exception {
+	public ResponseBean getfavoriteFileList(@HeaderParam("token") String token, @PathParam("fileId") String fileId ) throws Exception {
 		ResponseBean result = null;
 		System.out.println("files List 1: "+System.currentTimeMillis());
 		this.authFilter = new AuthFilter();
 		 String loginUser = this.authFilter.getUserNameFromToken(token);
 		 try {
-			 result = uploadServices.makeFavouriteFile(fileId, loginUser);
+			 result = uploadServices.makefavoriteFile(fileId, loginUser);
 			} catch (BgipException fe) {
 				buildErrorResponse(Response.Status.CONFLICT, fe.getErrorCode(),
 						fe.getMessage());
@@ -152,23 +152,23 @@ public class UploadController extends BaseController {
 	@GET
 	@Path("/favorite")
 	@Produces(APPLICATION_JSON)
-	public FolderResponse getFavouriteFolders(@HeaderParam("token") String token ) throws Exception {
+	public FolderResponse getfavoriteFolders(@HeaderParam("token") String token ) throws Exception {
 		FolderResponse result = null;
 		System.out.println("folder List 1: "+System.currentTimeMillis());
 		this.authFilter = new AuthFilter();
 		 String loginUser = this.authFilter.getUserNameFromToken(token);
-		 result = uploadServices.getFavouriteFolders(loginUser);
+		 result = uploadServices.getfavoriteFolders(loginUser);
 		return result;
 	}
 	
 	@GET
-	@Path("/file/favourite/list")
+	@Path("/file/favorite/list")
 	@Produces(APPLICATION_JSON)
-	public List<FilesBean> getFavouriteFiles(@HeaderParam("token") String token ) throws Exception {
+	public List<FilesBean> getfavoriteFiles(@HeaderParam("token") String token ) throws Exception {
 		List<FilesBean> result = null;
 		this.authFilter = new AuthFilter();
 		 String loginUser = this.authFilter.getUserNameFromToken(token);
-		 result = uploadServices.getFavouriteFiles(loginUser);
+		 result = uploadServices.getfavoriteFiles(loginUser);
 		return result;
 	}
 	

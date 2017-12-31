@@ -63,15 +63,15 @@ public class UploadServices {
 	}
 
 
-	public ResponseBean makeFavouriteFolder( String folderId, String loginUser) throws Exception{
+	public ResponseBean makefavoriteFolder( String folderId, String loginUser) throws Exception{
 
-	return uploadDao.makeFavouriteFolder(folderId, loginUser);
+	return uploadDao.makeFavoriteFolder(folderId, loginUser);
 }
 	
-	public ResponseBean makeFavouriteFile( String fileId, String loginUser) throws Exception{
+	public ResponseBean makefavoriteFile( String fileId, String loginUser) throws Exception{
 		ResponseBean res = null;
 		try {
-			res = uploadDao.makeFavouriteFile(fileId, loginUser);
+			res = uploadDao.makeFavoriteFile(fileId, loginUser);
 		} catch (BgipException e) {
 			e.printStackTrace();
 			throw new BgipException(StatusCodes.NOT_FOUND, " File ID Not Found ");
@@ -79,14 +79,14 @@ public class UploadServices {
 		return res;
 	}
 	
-	public FolderResponse getFavouriteFolders( String loginUser) throws Exception{
+	public FolderResponse getfavoriteFolders( String loginUser) throws Exception{
 		System.out.println("folder List 2: "+System.currentTimeMillis());
-		return uploadDao.getFavouriteFolders(loginUser);
+		return uploadDao.getFavoriteFolders(loginUser);
 	}
 	
-	public List<FilesBean> getFavouriteFiles( String loginUser) throws Exception{
+	public List<FilesBean> getfavoriteFiles( String loginUser) throws Exception{
 		System.out.println("files List 2: "+System.currentTimeMillis());
-		return uploadDao.getFavouriteFiles(loginUser);
+		return uploadDao.getFavoriteFiles(loginUser);
 	}
 	
 	
